@@ -66,6 +66,7 @@
 <div class="flex-center position-ref full-height">
     <form class="form-container" action="/change-password" method="POST">
         @csrf
+        
         <h2>Forgot Password?</h2>  
         @if(session()->has('message'))
             <div class="alert alert-success">
