@@ -90,7 +90,6 @@ class UserController extends Controller
         }
         
         if($request->hasFile('image'))
-        
         {
         $img_name = 'img_'.time().'.'.$request->image->getClientOriginalExtension();
         // dd( $img_name);
@@ -98,7 +97,6 @@ class UserController extends Controller
         $imagePath = 'img/'.$img_name;        
         $user->image = $imagePath;
       }
-
         $user->first_name = $request['first_name'];
         $user->last_name = $request['last_name'];
         $user->mobile = $request['mobile'];
@@ -156,7 +154,6 @@ class UserController extends Controller
             Auth::loginUsingId($user->id);
             User::where('mobile','=',$request->mobile)->update(['otp' => null]);
             $accessToken = auth()->user()->createToken('authToken')->accessToken;
-
             return response(["status" => 200, "message" => "Success", 'user' => auth()->user(), 'access_token' => $accessToken]);
         }
         else{
@@ -199,7 +196,6 @@ class UserController extends Controller
             return response()->json($obj);
         }
     } catch (\Exception $ex) {
-      dd($ex);
         return json_encode(['status' => 500, 'message' => 'Email is not valid!']);
     }
  }
