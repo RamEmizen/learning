@@ -66,7 +66,6 @@ class UserController extends Controller
       }else{
         return response()->json(['status'=>401,'response' => 'error','message' => 'Phone number not exits'], 401); 
       }      
-
   }
      }catch (\Exception $e) {
         return  response()->json(['error', 'something wrong']);
