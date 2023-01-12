@@ -26,9 +26,8 @@ Route::post('/login',[UserController::class,'login']);
 Route::post('get-otp',[UserController::class,'mobileOtp']);
 Route::post('get-verifyOtp',[UserController::class,'verifyOtp']);
 
-
-
 Route::group(['middleware'=>'auth:api'], function() {
+    
 Route::post('/update-profile',[UserController::class,'updateProfile']);
 Route::get('get-profile', [UserController::class ,'getProfile']);
 Route::post('password/email', [UserController::class ,'forgot']);
