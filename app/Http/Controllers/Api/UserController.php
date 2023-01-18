@@ -32,12 +32,13 @@ class UserController extends Controller
         }
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
+        $input['name'] = $input['first_name'].' '.$input['last_name'];
         $user = User::create($input);
         // $success['token'] = $user->createToken('MyLaravelApp')->accessToken;
         // $success['first_name'] = $user->first_name;
         return response()->json(['status' =>200, 'message' => 'Login successfully']);
       }catch (\Exception $e) {
-        return response()->json('error', 'something wrong');
+        return response()->json(['status'=>500,'response' => 'error','message' => 'Something went wrong'], 500);
     }
     }
 
@@ -68,7 +69,7 @@ class UserController extends Controller
       }      
   }
      }catch (\Exception $e) {
-        return  response()->json(['error', 'something wrong']);
+        return response()->json(['status'=>500,'response' => 'error','message' => 'Something went wrong'], 500);
     }
   }
 
