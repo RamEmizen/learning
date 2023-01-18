@@ -17,7 +17,11 @@ class AuthController extends Controller
      * @return response()
      */
     public function index()
-    {        
+    {   
+        if(Auth::user()){
+        return redirect()->route('dashboard');
+
+        }     
         return view('auth.login');
     }  
       

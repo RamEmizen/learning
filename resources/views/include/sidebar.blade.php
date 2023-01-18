@@ -163,8 +163,8 @@
                                             </a>
                                         </li>
                                         <li class="">
-                                            <a href="{{ route('dashboard') }}">
-                                                <span class="pcoded-mtext">CRM</span>
+                                            <a href="{{ route('qrcode') }}">
+                                                <span class="pcoded-mtext">QR</span>
                                             </a>
                                         </li>
                                     </ul>
