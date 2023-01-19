@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Agora\Src\RtcTokenBuilder;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Validator,Auth;
@@ -199,4 +200,31 @@ class UserController extends Controller
         return json_encode(['status' => 500, 'message' => 'Email is not valid!']);
     }
  }
+  
+    public function generate_token(Request $request){
+      try {
+           $validator = Validator::make($request->all(), [
+              'channelName' => 'required',
+          ]);
+          if ($validator->fails()) {
+
+              $obj = ["Status" => false, "success" => 0, "errors" => $validator->errors()];
+              return response()->json($obj);
+          }
+        $appID = env('AGORA_APP_ID');
+        $appCertificate = env('AGORA_APP_CERTIFICATE');
+        $channelName = $request->channelName;
+        $user = Auth::user()->name;
+        $role = RtcTokenBuilder::RoleAttendee;
+        $expireTimeInSeconds = 3600;
+        $currentTimestamp = now()->getTimestamp();
+        $privilegeExpiredTs = $currentTimestamp + $expireTimeInSeconds;
+        $rtcToken = RtcTokenBuilder::buildTokenWithUserAccount($appID, $appCertificate, $channelName, $user, $role, $privilegeExpiredTs);
+        return response()->json(['status'=>200, 'messsage'=>'sucess' ,'data'=>$rtcToken]);
+      } catch (\Exception $ex) {
+        dd($ex);
+          $obj = ["Status" => false, "success" => 0, "msg" => "'Something problem in internal system!"];
+          return response()->json($obj);
+      } 
+    }
 }

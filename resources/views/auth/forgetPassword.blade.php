@@ -1,6 +1,8 @@
-@extends('layout')
-  
-@section('content')
+@include('include.css')
+ @yield('css')
+
+ @include('include.script')
+@yield('js')
 <main class="login-form">
   <div class="cotainer">
       <div class="row justify-content-center">
@@ -39,4 +41,4 @@
       </div>
   </div>
 </main>
-@endsection
+{{-- @endsection --}}

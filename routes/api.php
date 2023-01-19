@@ -32,5 +32,8 @@ Route::post('/update-profile',[UserController::class,'updateProfile']);
 Route::get('get-profile', [UserController::class ,'getProfile']);
 Route::post('password/email', [UserController::class ,'forgot']);
 
+//agro
+Route::post('/agoraToken',[UserController::class,'generate_token']);
+
 });
 

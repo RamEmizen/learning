@@ -25,22 +25,19 @@ Route::get('login', [AuthController::class, 'index'])->name('login');
 Route::post('post-login', [AuthController::class, 'postLogin'])->name('login.post'); 
 Route::get('registration', [AuthController::class, 'registration'])->name('register');
 Route::post('post-registration', [AuthController::class, 'postRegistration'])->name('register.post'); 
-Route::get('dashboard', [AuthController::class, 'dashboard'])->name('dashboard'); 
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 
-Route::get('place-add','PlaceController@addPlace')->name('add.place');
-Route::get('place-list','PlaceController@listPlace')->name('list.place');
-
-Route::get('user/list', [UserController::class, 'userList'])->name('user.list');
-
+// Route::get('place-add','PlaceController@addPlace')->name('add.place');
+// Route::get('place-list','PlaceController@listPlace')->name('list.place');
 // Route::get('/reset-password/{token}', function ($token) {
 //     $url = URL::to('/');
 //     return view('reset-password',compact('url','token'));
 // })->name('reset.password.get');
+
+//api reset password
 Route::get('reset-password/{token}',[UserController::class,'resetPassword'])->name('reset.password.get');
 Route::post('change-password',[UserController::class,'updatePassword'])->name('change.password');
-
 
 // admin forget password
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
@@ -48,5 +45,9 @@ Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPa
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
-
+Route::group(['middleware'=>'auth:web'], function() {
+Route::get('dashboard', [AuthController::class, 'dashboard'])->name('dashboard'); 
 Route::get('/qrcode', [QrCodeController::class, 'index'])->name('qrcode');
+Route::get('user/list', [UserController::class, 'userList'])->name('user.list');
+    
+});
