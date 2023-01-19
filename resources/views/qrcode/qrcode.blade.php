@@ -1,3 +1,5 @@
+@extends('layout')
+@section('content')
 <!DOCTYPE html>
 <html>
 
@@ -33,3 +35,4 @@
     </div>
 </body>
 </html>
+@endsection

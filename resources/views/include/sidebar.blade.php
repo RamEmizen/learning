@@ -151,28 +151,22 @@
                         <div class="pcoded-inner-navbar main-menu">
                             <div class="pcoded-navigatio-lavel">Navigation</div>
                             <ul class="pcoded-item pcoded-left-item">
-                                <li class="pcoded-hasmenu active pcoded-trigger">
+                                <li class="">
                                     <a href="{{ route('dashboard') }}">
                                         <span class="pcoded-micon"><i class="feather icon-home"></i></span>
                                         <span class="pcoded-mtext">Dashboard</span>
                                     </a>
-                                    <ul class="pcoded-submenu">
-                                        <li class="active">
-                                            <a href="dashboard.ttml">
-                                                <span class="pcoded-mtext">Default</span>
-                                            </a>
-                                        </li>
-                                        <li class="">
-                                            <a href="{{ route('qrcode') }}">
-                                                <span class="pcoded-mtext">QR</span>
-                                            </a>
-                                        </li>
-                                    </ul>
                                 </li>
-                            </ul>
-
-
+                              </ul>
                             <ul class="pcoded-item pcoded-left-item">
+                                <li class="">
+                                    <a href="{{ route('qrcode') }}">
+                                        <span class="pcoded-micon"><i class="feather icon-list"></i></span>
+                                        <span class="pcoded-mtext">QR</span>
+                                    </a>
+                                </li>
+                              </ul>
+                         <ul class="pcoded-item pcoded-left-item">
                                 <li class="">
                                     <a href="{{ route('user.list') }}">
                                         <span class="pcoded-micon"><i class="feather icon-list"></i></span>
