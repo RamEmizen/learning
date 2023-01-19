@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\StripePaymentController;
 
 
 
@@ -34,6 +35,11 @@ Route::post('password/email', [UserController::class ,'forgot']);
 
 //agro
 Route::post('/agoraToken',[UserController::class,'generate_token']);
+
+//paypal 
+Route::post('stripes', [StripePaymentController::class, 'stripes']);
+Route::get('stripe-successs', [StripePaymentController::class, 'stripeSuccesss'])->name('stripes.success');
+Route::get('stripe-errors', [StripePaymentController::class, 'stripeErrors'])->name('stripes.error');
 
 });
 
