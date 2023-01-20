@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades;
 use Session;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use Hash;
 use Auth;
 
@@ -50,6 +52,9 @@ class AuthController extends Controller
    
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
+
+            // $role = Role::findById(1);
+            // $role->givePermissionTo(['role-delete']);
             return redirect()->intended('dashboard')
                         ->withSuccess('You have Successfully loggedin');
         }
@@ -72,7 +77,7 @@ class AuthController extends Controller
            
         $data = $request->all();
         $check = $this->create($data);
-         
+        // $check->assignRole('Admin');
         return redirect("dashboard")->withSuccess('Great! You have Successfully loggedin');
     }
     
@@ -108,7 +113,6 @@ class AuthController extends Controller
     public function logout() {
         Session::flush();
         Auth::logout();
-  
         return Redirect('login');
     }
 }
