@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\UserController ;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\QrCodeController;
 /*
@@ -50,7 +50,7 @@ Route::get('dashboard', [AuthController::class, 'dashboard'])->name('dashboard')
 Route::get('/qrcode', [QrCodeController::class, 'index'])->name('qrcode');
 Route::get('user/list', [UserController::class, 'userList'])->name('user.list');
 
-//role user 
+//roll for user
 Route::resource('roles', RoleController::class);
 Route::resource('users', UserController::class);
     
