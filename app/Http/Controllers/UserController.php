@@ -43,7 +43,7 @@ class UserController extends Controller
         }
   }
 
- 
+ // this is use to user managemenet roll controlller
   public function index(Request $request)
     {
         $data = User::orderBy('id','DESC')->paginate(5);
