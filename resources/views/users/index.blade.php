@@ -8,7 +8,9 @@
             <h2>Users Management</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-success" href="{{ route('users.create') }}"> Create New User</a>
+          @can('role-add-user')
+            <a class="btn btn-success" href="{{ route('users.create') }}">Create New User</a>
+            @endcan
         </div>
     </div>
 </div>
