@@ -112,8 +112,8 @@
                                     <ul class="show-notification profile-notification dropdown-menu"
                                         data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                                         <li>
-                                            <a href="{{ route('register') }}">
-                                                <i class="feather icon-settings"></i> Register
+                                            <a href="">
+                                                <i class="feather icon-settings"></i> Setting
                                             </a>
                                         </li>
                                         <li>

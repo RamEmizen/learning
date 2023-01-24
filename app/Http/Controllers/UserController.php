@@ -6,17 +6,64 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use DB;
-use Hash;
+use Hash,Auth;
 use Illuminate\Support\Arr;
 
 class UserController extends Controller
 {
    public function userList()
    {
-     $userData = User::orderBy('id','asc')->get();
+    if(Auth::user()->roles[0]->id == '1'){
+        $userData = User::orderBy('id','asc')->get();
+        
+    }else{
+        $userData = User::where('created_by_id',Auth::user()->id)->orderBy('id','asc')->get();
+       
+    }
      return view('users.list',compact('userData'));
    }
 
+    public function addUser(){
+     return view('users.add');  
+    }
+    public function storeUser(Request $request){
+        try{
+             $data = $request->all();
+             $rules = [
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'mobile' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10:mobile|unique:users,mobile,' . @$request->user_id,
+                'email' => 'required|email|unique:users,email,' . @$request->user_id,
+                'image' => 'required',
+            ];
+            $request->validate($rules);
+
+            if($request->hasFile('image'))
+            {
+            $img_name = 'img_'.time().'.'.$request->image->getClientOriginalExtension();
+            $request->image->move(public_path('img/'), $img_name);
+            $imagePath = 'img/'.$img_name;
+            $data['image'] = $imagePath;
+          }
+
+
+          $userData = 
+           [
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'mobile' => $data['mobile'],
+            'email' => $data['email'],
+            'image' =>$imagePath,
+            'created_by_id'=> Auth::user()->id
+
+           ];
+             User::create($userData);
+             return redirect()->route('user.list')->with('user sucessfully add');
+        } catch(Exception $e){
+            return redirect()->back()->with('error','something wrong');
+            }
+    }
+//password reset
    public function resetPassword($token){
         try{
           $email = \base64_decode($token);
@@ -43,7 +90,7 @@ class UserController extends Controller
         }
   }
 
- 
+ // this is use to user managemenet roll controlller
   public function index(Request $request)
     {
         $data = User::orderBy('id','DESC')->paginate(5);

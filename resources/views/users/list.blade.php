@@ -19,17 +19,18 @@
                 <div class="col-md-12">
                         <div class="card-header-admin d-flex justify-content-between">
                             <h3 class="card-title">User list</h3>
-                            {{-- <a href="{{ route('admin.cms.page.add') }}" class="card-title">+ Add Cms Page</a> --}}
+                            @if(Auth::user()->roles[0]->id!=1)
+                            <a href="{{ route('add.user')}}" class="card-title">+ Add user</a>
+                            @endif
                         </div>
                         <div class="card-body">
                             <table id="category_tbl" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th scope="col">SR. #</th>
-                                        <th scope="col">name</th>
+                                        <th scope="col">Last Name</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Mobile</th>
-                                        <th scope="col">Address</th>
                                         <th scope="col">Image</th>
                                     </tr>
                                 </thead>
@@ -42,10 +43,9 @@
                                         <tr class="remove_row_<?php echo $pages->id; ?>">
                                             <th scope="row" class="sr.#"> {{ $i++ }}</th>
                                             <td>{{ !empty($pages->first_name) ? $pages->first_name : 'N/A' }}</td>
+                                            <td>{{ !empty($pages->last_name) ? $pages->last_name : 'N/A' }}</td>
                                             <td>{{ !empty($pages->email) ? $pages->email : 'N/A' }}</td>
                                             <td>{{ !empty($pages->mobile) ? $pages->mobile : 'N/A' }}</td>
-                                            <td>{{ !empty($pages->address) ? $pages->address : 'N/A' }}</td>
-
                                             <td>@if ($pages->image)
                                                 <div class="img-wrap">
                                                     <img src="{{ asset($pages->image) }}" alt="">
