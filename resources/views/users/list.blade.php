@@ -3,7 +3,7 @@
 @section('content')
             <div class="row">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Cms Pages </h1>
+                    <h1 class="m-0">User list</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -28,6 +28,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">SR. #</th>
+                                        <th scope="col">first Name</th>
                                         <th scope="col">Last Name</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Mobile</th>
