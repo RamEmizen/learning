@@ -45,8 +45,6 @@ class UserController extends Controller
             $imagePath = 'img/'.$img_name;
             $data['image'] = $imagePath;
           }
-
-
           $userData = 
            [
             'first_name' => $data['first_name'],
@@ -63,6 +61,15 @@ class UserController extends Controller
             return redirect()->back()->with('error','something wrong');
             }
     }
+
+    
+    public function userEdit($id){
+
+      $user =User::where('id',$id)->first();
+      // dd($user->name);
+      return view('users.uedit', compact('user'));
+
+      }
 //password reset
    public function resetPassword($token){
         try{

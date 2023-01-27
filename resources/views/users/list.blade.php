@@ -19,7 +19,7 @@
                 <div class="col-md-12">
                         <div class="card-header-admin d-flex justify-content-between">
                             <h3 class="card-title">User list</h3>
-                            @if(Auth::user()->roles[0]->id!=1)
+                            @if(Auth::user()->roles[0]->id!=3)
                             <a href="{{ route('add.user')}}" class="card-title">+ Add user</a>
                             @endif
                         </div>
@@ -33,6 +33,8 @@
                                         <th scope="col">Email</th>
                                         <th scope="col">Mobile</th>
                                         <th scope="col">Image</th>
+                                        <th scope="col">Action</th>
+
                                     </tr>
                                 </thead>
                                  <tbody>

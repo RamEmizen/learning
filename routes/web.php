@@ -51,6 +51,7 @@ Route::get('/qrcode', [QrCodeController::class, 'index'])->name('qrcode');
 Route::get('user/list', [UserController::class, 'userList'])->name('user.list');
 Route::get('user/add',[UserController::class,'addUser'])->name('add.user');
 Route::post('user/store',[UserController::class,'storeUser'])->name('store.user');
+Route::get('user/edit/{id}',[UserController::class,'userEdit'])->name('user.edit');
 
 //roll for user
 Route::resource('roles', RoleController::class);
