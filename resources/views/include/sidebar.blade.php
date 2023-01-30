@@ -150,6 +150,7 @@
                     <nav class="pcoded-navbar">
                         <div class="pcoded-inner-navbar main-menu">
                             <div class="pcoded-navigatio-lavel">Navigation</div>
+                            @if(Auth::user()->roles[0]->id==3)
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="">
                                     <a href="{{ route('dashboard') }}">
@@ -166,6 +167,7 @@
                                     </a>
                                 </li>
                               </ul>
+                             @endif
                          <ul class="pcoded-item pcoded-left-item">
                                 <li class="">
                                     <a href="{{ route('user.list') }}">

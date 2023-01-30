@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
+
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\QrCodeController;
 /*
@@ -36,8 +36,8 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 // })->name('reset.password.get');
 
 //api reset password
-Route::get('reset-password/{token}',[UserController::class,'resetPassword'])->name('reset.password.get');
-Route::post('change-password',[UserController::class,'updatePassword'])->name('change.password');
+Route::get('reset-password/{token}',[App\Http\Controllers\UserController::class,'resetPassword'])->name('reset.password.get');
+Route::post('change-password',[App\Http\Controllers\UserController::class,'updatePassword'])->name('change.password');
 
 // admin forget password
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
@@ -48,11 +48,11 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
 Route::group(['middleware'=>'auth:web'], function() {
 Route::get('dashboard', [AuthController::class, 'dashboard'])->name('dashboard'); 
 Route::get('/qrcode', [QrCodeController::class, 'index'])->name('qrcode');
-Route::get('user/list', [UserController::class, 'userList'])->name('user.list');
-Route::get('user/add',[UserController::class,'addUser'])->name('add.user');
-Route::post('user/store',[UserController::class,'storeUser'])->name('store.user');
-Route::get('user/edit/{id}',[UserController::class,'userEdit'])->name('user.edit');
-
+Route::get('user/list', [App\Http\Controllers\UserController::class, 'userList'])->name('user.list');
+Route::get('user/add',[App\Http\Controllers\UserController::class,'addUser'])->name('add.user');
+Route::post('user/store',[App\Http\Controllers\UserController::class,'storeUser'])->name('store.user');
+Route::get('user/edit/{id}',[App\Http\Controllers\UserController::class,'userEdit'])->name('user.edit');
+Route::post('user/update' ,[App\Http\Controllers\UserController::class,'userUpdate'])->name('user.update');
 //roll for user
 Route::resource('roles', RoleController::class);
 Route::resource('users', UserController::class);

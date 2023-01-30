@@ -19,7 +19,7 @@
                 <div class="col-md-12">
                         <div class="card-header-admin d-flex justify-content-between">
                             <h3 class="card-title">User list</h3>
-                            @if(Auth::user()->roles[0]->id!=3)
+                            @if(Auth::user()->roles[0]->id ==3)
                             <a href="{{ route('add.user')}}" class="card-title">+ Add user</a>
                             @endif
                         </div>
@@ -51,11 +51,17 @@
                                             <td>{{ !empty($pages->mobile) ? $pages->mobile : 'N/A' }}</td>
                                             <td>@if ($pages->image)
                                                 <div class="img-wrap">
-                                                    <img src="{{ asset($pages->image) }}" alt="">
+                                                    <img src="{{ asset($pages->image) }}" width="50px" alt="">
                                                 </div>
                                             @else
                                                 N/A
-                                            @endif</td>
+                                            @endif
+                                        </td>
+
+                                              <td class="action">
+                                                    <a href="{{ route('user.edit', $pages->id) }}"><i class="fa fa-edit"></i></a>
+                                                </td> 
+                                            </tr>
                                         </tr>
                                     @endforeach
                                 </tbody> 

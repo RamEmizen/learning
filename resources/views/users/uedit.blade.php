@@ -27,7 +27,7 @@
                             <h3 class="card-title">Edit User</h3>
                         </div>
                         <div class="card-body">
-                            <form id='cms-page-form' action="" method="POST"
+                            <form id='cms-page-form' action="{{route('user.update')}}" method="POST"
                                 enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <input type="hidden" value="{{ $user->id }}" name="id" />
@@ -35,52 +35,52 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label for="name">{{ __('First Name') }}</span></label>
-                                            <input class="form-control" id="title" name="title" type="text"
+                                            <input class="form-control" id="title" name="first_name" type="text"
                                                 minlength="1" maxlength="255" title="Title"
-                                                placeholder="{{ __('Enter Title Name') }}"
+                                                placeholder="{{ __('Enter First Name') }}"
                                                 autocomplete="off" value="{{ $user->first_name }}">
-                                            @if ($errors->has('title'))
+                                            @if ($errors->has('first_name'))
                                                 <div class="invalid-feedback" style="display:block;">
-                                                    {{ $errors->first('title') }}</div>
+                                                    {{ $errors->first('first_name') }}</div>
                                             @endif
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label for="name">{{ __('Last Name') }}</span></label>
-                                            <input class="form-control" id="title" name="Last_name" type="text"
+                                            <input class="form-control" id="title" name="last_name" type="text"
                                                 minlength="1" maxlength="255" title="Title"
-                                                placeholder="{{ __('Enter Title Name') }}"
+                                                placeholder="{{ __('Enter Last Name') }}"
                                                 autocomplete="off" value="{{$user->last_name }}">
-                                            @if ($errors->has('title'))
+                                            @if ($errors->has('first_name'))
                                                 <div class="invalid-feedback" style="display:block;">
-                                                    {{ $errors->first('title') }}</div>
+                                                    {{ $errors->first('first_name') }}</div>
                                             @endif
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label for="name">{{ __('Mobile') }}</span></label>
-                                            <input class="form-control" id="title" name="title" type="text"
+                                            <input class="form-control" id="title" name="mobile" type="text"
                                                 minlength="1" maxlength="255" title="Title"
-                                                placeholder="{{ __('Enter Title Name') }}"
+                                                placeholder="{{ __('Enter Mobile Name') }}"
                                                 autocomplete="off" value="{{ $user->mobile }}">
-                                            @if ($errors->has('title'))
+                                            @if ($errors->has('mobile'))
                                                 <div class="invalid-feedback" style="display:block;">
-                                                    {{ $errors->first('title') }}</div>
+                                                    {{ $errors->first('mobile') }}</div>
                                             @endif
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label for="name">{{ __('Email') }}</span></label>
-                                            <input class="form-control" id="title" name="title" type="text"
+                                            <input class="form-control" id="title" name="email" type="text"
                                                 minlength="1" maxlength="255" title="Title"
-                                                placeholder="{{ __('Enter Title Name') }}"
+                                                placeholder="{{ __('Enter e Email Name') }}"
                                                 autocomplete="off" value="{{ $user->email }}">
-                                            @if ($errors->has('title'))
+                                            @if ($errors->has('email'))
                                                 <div class="invalid-feedback" style="display:block;">
-                                                    {{ $errors->first('title') }}</div>
+                                                    {{ $errors->first('email') }}</div>
                                             @endif
                                         </div>
                                     </div>
@@ -89,19 +89,15 @@
                                             <label for="name">{{ __('Image') }}</span></label>
                                                 <div class="my-2">
                                                     <input type="file" name="file" id="file" accept="image/*" class="form-control">
+                                                    <input type="hidden" name ='oldImage' value="{{$user->image}}"> 
                                                   </div>
-                                        
                                                   <img src="{{ asset(''.$user->image) }}" class="img-fluid img-thumbnail" width="150">
-
-
-                                            @if ($errors->has('title'))
+                                            @if ($errors->has('file'))
                                                 <div class="invalid-feedback" style="display:block;">
-                                                    {{ $errors->first('title') }}</div>
+                                                    {{ $errors->first('file') }}</div>
                                             @endif
                                         </div>
                                     </div>
-
-                                   
                                 </div>
                                 <div class="card-footer">
                                     <button class="btn btn-sm btn-primary" type="submit"
