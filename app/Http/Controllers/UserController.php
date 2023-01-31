@@ -74,7 +74,6 @@ class UserController extends Controller
       public function userUpdate(Request $request){
       try{
         $data = $request->all();
-        // dd($data);
         $rule = [
             'first_name' => 'required',
             'last_name' => 'required',
@@ -109,6 +108,17 @@ class UserController extends Controller
       }catch(Exception $e){
        return redirect()->back()->with('error','with something wrong');
       }
+      }
+
+      public function userDelete(Request $request){
+        try{
+       $data = User::find($request->id);
+        $data->delete();
+        // return json_encode(['status'=>200,'massage'=>'delete']);
+        return response()->json(['status'=>200,'massage'=>'delete']);
+        }catch(Expception $e){
+            return response()->json(['status' => 500, 'message' => "Something problem in internal system!"]);
+        }
       }
 //password reset
    public function resetPassword($token){

@@ -53,6 +53,8 @@ Route::get('user/add',[App\Http\Controllers\UserController::class,'addUser'])->n
 Route::post('user/store',[App\Http\Controllers\UserController::class,'storeUser'])->name('store.user');
 Route::get('user/edit/{id}',[App\Http\Controllers\UserController::class,'userEdit'])->name('user.edit');
 Route::post('user/update' ,[App\Http\Controllers\UserController::class,'userUpdate'])->name('user.update');
+Route::post('user/delete' ,[App\Http\Controllers\UserController::class,'userDelete'])->name('user.delete');
+
 //roll for user
 Route::resource('roles', RoleController::class);
 Route::resource('users', UserController::class);

@@ -150,7 +150,7 @@
                     <nav class="pcoded-navbar">
                         <div class="pcoded-inner-navbar main-menu">
                             <div class="pcoded-navigatio-lavel">Navigation</div>
-                            @if(Auth::user()->roles[0]->id==3)
+                            @if(Auth::user()->roles[0]->id!=2)
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="">
                                     <a href="{{ route('dashboard') }}">
