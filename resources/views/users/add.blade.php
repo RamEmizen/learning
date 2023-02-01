@@ -18,6 +18,9 @@
   .iti {
     width: 100%;
   }
+  .error{
+      color: rgb(235, 18, 18);
+  }
   </style>
 <div class="content-header">
     <div class="container-fluid">
@@ -57,12 +60,18 @@
                               <div class="form-group">
                                   <label>First Name</label>
                                   <input type="text" class="form-control" name="first_name"  placeholder="Enter First Name">
+                                  @if($errors->has('first_name'))
+                                  <div class="error">{{ $errors->first('first_name') }}</div>
+                                  @endif
                                 </div>
                             </div>
                             <div class="col-lg-6">
                               <div class="form-group">
                                   <label>Last Name</label>
                                   <input type="text" class="form-control" name="last_name"  placeholder="Enter Last Name">
+                                  @if($errors->has('last_name'))
+                                  <div class="error">{{ $errors->first('last_name') }}</div>
+                                  @endif
                                 </div>
                             </div>
 
@@ -78,7 +87,7 @@
                             <div class="col-lg-6">
                               <div class="form-group">
                                   <label class="d-block">Mobile</label>
-                                  <input type="tel" id="txtPhone" onkeypress="return onlyNumberKey(event)" class="form-control w-100 txtbox" required name="mobile"  placeholder="Enter mobile">
+                                  <input type="tel" id="txtPhone"  class="form-control w-100 txtbox" name="mobile"  placeholder="Enter mobile">
                                   @if($errors->has('mobile'))
                                   <div class="error">{{ $errors->first('mobile') }}</div>
                                   @endif

@@ -6,7 +6,7 @@
     <meta name="keywords" content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
     <meta name="author" content="#">
     <!-- Favicon icon -->
-    <link rel="icon" href="..\admin\css\images\favicon.ico" type="image/x-icon">
+    <link rel="icon" href="\admin\css\images\favicon.ico" type="image/x-icon">
    
    <!-- Pre-loader start -->
     <div class="theme-loader">
@@ -58,7 +58,7 @@
                             <i class="feather icon-menu"></i>
                         </a>
                         <a href="index-1.htm">
-                            <img class="img-fluid" src="..\admin\css\images\logo.png" alt="Theme-Logo">
+                            <img class="img-fluid" src="\admin\css\images\logo.png" alt="Theme-Logo">
                         </a>
                         <a class="mobile-options">
                             <i class="feather icon-more-horizontal"></i>
@@ -104,7 +104,7 @@
                             <li class="user-profile header-notification">
                                 <div class="dropdown-primary dropdown">
                                     <div class="dropdown-toggle" data-toggle="dropdown">
-                                        <img src="..\admin\css\images\avatar-4.jpg" class="img-radius"
+                                        <img src="\admin\css\images\avatar-4.jpg" class="img-radius"
                                             alt="User-Profile-Image">
                                         <span>Ram</span>
                                         <i class="feather icon-chevron-down"></i>
@@ -150,6 +150,7 @@
                     <nav class="pcoded-navbar">
                         <div class="pcoded-inner-navbar main-menu">
                             <div class="pcoded-navigatio-lavel">Navigation</div>
+                            @if(Auth::user()->roles[0]->id!=2)
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="">
                                     <a href="{{ route('dashboard') }}">
@@ -166,6 +167,7 @@
                                     </a>
                                 </li>
                               </ul>
+                             @endif
                          <ul class="pcoded-item pcoded-left-item">
                                 <li class="">
                                     <a href="{{ route('user.list') }}">

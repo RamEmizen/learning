@@ -14,8 +14,8 @@ class UserController extends Controller
    public function userList()
    {
     if(Auth::user()->roles[0]->id == '1'){
-        $userData = User::orderBy('id','asc')->get();
-        
+        // $userData = User::orderBy('id','asc')->get();
+        $userData= User::doesntHave('roles')->get();
     }else{
         $userData = User::where('created_by_id',Auth::user()->id)->orderBy('id','asc')->get();
        
@@ -45,8 +45,6 @@ class UserController extends Controller
             $imagePath = 'img/'.$img_name;
             $data['image'] = $imagePath;
           }
-
-
           $userData = 
            [
             'first_name' => $data['first_name'],
@@ -62,6 +60,69 @@ class UserController extends Controller
         } catch(Exception $e){
             return redirect()->back()->with('error','something wrong');
             }
+    }
+
+    
+    public function userEdit($id){
+
+      $user =User::where('id',$id)->first();
+      // dd($user->name);
+      return view('users.uedit', compact('user'));
+
+      }
+
+      public function userUpdate(Request $request){
+      try{
+        $data = $request->all();
+        $rule = [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'mobile' => 'required',
+            'email' => 'required|email|unique:users,email,' . @$request->id,
+            // 'file' => empty($data['oldImage']) ? 'reqiured|image|mimes:jpg,png,jpeg,gif,svg' : 'image|mimes:jpg,png,jpeg,gif,svg',
+        ];
+        if(empty($data['oldImage'])){            
+            $rule = [
+                'file' => 'required|image|mimes:jpg,png,jpeg,gif,svg'
+            ];
+        }else{            
+            $rule = [
+                'file' => 'image|mimes:jpg,png,jpeg,gif,svg'
+            ];
+        }
+        $request->validate($rule);
+        $userData = [
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'mobile' => $data['mobile'],
+            'email' => $data['email'],            
+        ];
+        if ($image = $request->file('file')) {
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $destinationPath = 'img/'.$profileImage;
+            $file  = $image->move($destinationPath, $profileImage);
+            $userData['image'] = $file;
+        }
+        User::where('id',$request->id)->update($userData);
+        return redirect()->route('user.list')->with('user succsessfully update');
+      }catch(Exception $e){
+       return redirect()->back()->with('error','with something wrong');
+      }
+      }
+
+      public function userDelete(Request $request){
+        try{
+       $data = User::find($request->id);
+        $data->delete();
+        // return json_encode(['status'=>200,'massage'=>'delete']);
+        return response()->json(['status'=>200,'massage'=>'delete']);
+        }catch(Expception $e){
+            return response()->json(['status' => 500, 'message' => "Something problem in internal system!"]);
+        }
+      }
+      public function userShow($id){
+        $user = User::where('id',$id)->get();
+        return view('users.ushow',compact('user'));
     }
 //password reset
    public function resetPassword($token){
@@ -93,7 +154,8 @@ class UserController extends Controller
  // this is use to user managemenet roll controlller
   public function index(Request $request)
     {
-        $data = User::orderBy('id','DESC')->paginate(5);
+        // $data = User::where()->orderBy('id','DESC')->paginate(5);
+        $data = User::whereHas("roles", function($q){ $q->where("name",'!=',null); })->paginate(5);
         return view('users.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
