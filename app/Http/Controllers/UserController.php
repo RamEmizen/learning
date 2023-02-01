@@ -14,8 +14,8 @@ class UserController extends Controller
    public function userList()
    {
     if(Auth::user()->roles[0]->id == '1'){
-        $userData = User::orderBy('id','asc')->get();
-        
+        // $userData = User::orderBy('id','asc')->get();
+        $userData= User::doesntHave('roles')->get();
     }else{
         $userData = User::where('created_by_id',Auth::user()->id)->orderBy('id','asc')->get();
        
@@ -120,6 +120,10 @@ class UserController extends Controller
             return response()->json(['status' => 500, 'message' => "Something problem in internal system!"]);
         }
       }
+      public function userShow($id){
+        $user = User::where('id',$id)->get();
+        return view('users.ushow',compact('user'));
+    }
 //password reset
    public function resetPassword($token){
         try{

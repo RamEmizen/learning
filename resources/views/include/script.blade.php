@@ -29,3 +29,4 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'UA-23581568-13');
 </script>
+<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>

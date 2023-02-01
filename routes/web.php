@@ -54,6 +54,7 @@ Route::post('user/store',[App\Http\Controllers\UserController::class,'storeUser'
 Route::get('user/edit/{id}',[App\Http\Controllers\UserController::class,'userEdit'])->name('user.edit');
 Route::post('user/update' ,[App\Http\Controllers\UserController::class,'userUpdate'])->name('user.update');
 Route::post('user/delete' ,[App\Http\Controllers\UserController::class,'userDelete'])->name('user.delete');
+route::get('user/show/{id}',[App\Http\Controllers\UserController::class,'userShow'])->name('user.show');
 
 //roll for user
 Route::resource('roles', RoleController::class);

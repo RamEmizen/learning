@@ -61,11 +61,9 @@
 
                                     <td class="action">
                                         <a href="{{ route('user.edit', $pages->id) }}"><i class="fa fa-edit"></i></a>
-
+                                         <a href="{{route('user.show', $pages->id)}}"><i class="fa fa-eye"></i></a>
                                         <a href="javascript:void(0)" onclick="deletePages('{{ $pages->id }}')"><i
                                                 class="fa fa-trash"></i></a>
-
-                                        {{-- <a  onclick="deleteData" href="{{route('user.delete', $pages->id)}}"><i class="fa fa-trash"></i></a> --}}
                                     </td>
                                 </tr>
                                 </tr>
@@ -79,6 +77,11 @@
     </section>
 @endsection
 @section('js')
+<script>
+    $(document).ready(function() {
+      $('#category_tbl').DataTable();
+  } );
+   </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         function deletePages(id) {

@@ -36,7 +36,7 @@
                                         <div class="form-group">
                                             <label for="name">{{ __('First Name') }}</span></label>
                                             <input class="form-control" id="title" name="first_name" type="text"
-                                                minlength="1" maxlength="255" title="Title"
+                                                minlength="1" maxlength="255" title="First Name"
                                                 placeholder="{{ __('Enter First Name') }}"
                                                 autocomplete="off" value="{{ $user->first_name }}">
                                             @if ($errors->has('first_name'))
@@ -52,17 +52,17 @@
                                                 minlength="1" maxlength="255" title="Title"
                                                 placeholder="{{ __('Enter Last Name') }}"
                                                 autocomplete="off" value="{{$user->last_name }}">
-                                            @if ($errors->has('first_name'))
+                                            @if ($errors->has('last_name'))
                                                 <div class="invalid-feedback" style="display:block;">
-                                                    {{ $errors->first('first_name') }}</div>
+                                                    {{ $errors->first('last_name') }}</div>
                                             @endif
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label for="name">{{ __('Mobile') }}</span></label>
-                                            <input class="form-control" id="title" name="mobile" type="text"
-                                                minlength="1" maxlength="255" title="Title"
+                                            <input class="form-control" name="mobile" type="text"
+                                                minlength="1" maxlength="255" title="Mobile"
                                                 placeholder="{{ __('Enter Mobile Name') }}"
                                                 autocomplete="off" value="{{ $user->mobile }}">
                                             @if ($errors->has('mobile'))
