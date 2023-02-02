@@ -66,7 +66,7 @@
                         <tr>
                             <th> Image:</th>
                             <td>
-                                <img src="{{ asset($users->image) }}" width="50px" alt="">
+                                <img src="{{ asset($users->image) }}" width="200px" alt="">
                             </td>
                         </tr>
                     </tbody>

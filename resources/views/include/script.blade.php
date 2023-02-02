@@ -15,7 +15,7 @@
 <script src="\admin\js\pages\widget\amchart\serial.js"></script>
 <script src="\admin\js\pages\widget\amchart\light.js"></script>
 <script src="\admin\js\js\jquery.mCustomScrollbar.concat.min.js"></script>
-<script type="text/javascript" src="\admin\js\js\SmoothScroll.js"></script>
+{{-- <script type="text/javascript" src="\admin\js\js\SmoothScroll.js"></script> --}}
 <script src="\admin\js\js\pcoded.min.js"></script>
 <!-- custom js -->
 <script src="\admin\js\js\vartical-layout.min.js"></script>
