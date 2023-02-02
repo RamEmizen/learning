@@ -13,6 +13,15 @@
         </div>
     </div>
 
+    <!--date picker -->
+    <form action="{{route('user.list')}}" enctype="multipart/form-data" method="post">
+     @csrf
+    <p>Date: <input type="text" name="date" id="datepicker" value="{{$date}}"readonly></p>
+
+    <p>Filter: <input type="text" name="first_name"  value="{{$name}}"></p>
+    <button id='Submit' type="submit" class="btn btn-primary">Submit</button>
+   </form>
+
     <!-- /.content-header -->
     <section class="content">
         <div class="row">
@@ -33,6 +42,7 @@
                                 <th scope="col">Email</th>
                                 <th scope="col">Mobile</th>
                                 <th scope="col">Image</th>
+                                <th scope='col'>Time</th>
                                 <th scope="col">Action</th>
 
                             </tr>
@@ -58,7 +68,7 @@
                                             N/A
                                         @endif
                                     </td>
-
+                                     <td>{{($pages->created_at->format('Y.m.d'))}}</td>
                                     <td class="action">
                                         <a href="{{ route('user.edit', $pages->id) }}"><i class="fa fa-edit"></i></a>
                                          <a href="{{route('user.show', $pages->id)}}"><i class="fa fa-eye"></i></a>
@@ -82,6 +92,14 @@
       $('#category_tbl').DataTable();
   } );
    </script>
+
+<script>
+    $( function() {
+      $( "#datepicker" ).datepicker();
+    } );
+    </script>
+
+   <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         function deletePages(id) {

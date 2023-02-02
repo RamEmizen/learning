@@ -48,7 +48,7 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
 Route::group(['middleware'=>'auth:web'], function() {
 Route::get('dashboard', [AuthController::class, 'dashboard'])->name('dashboard'); 
 Route::get('/qrcode', [QrCodeController::class, 'index'])->name('qrcode');
-Route::get('user/list', [App\Http\Controllers\UserController::class, 'userList'])->name('user.list');
+Route::any('user/list', [App\Http\Controllers\UserController::class, 'userList'])->name('user.list');
 Route::get('user/add',[App\Http\Controllers\UserController::class,'addUser'])->name('add.user');
 Route::post('user/store',[App\Http\Controllers\UserController::class,'storeUser'])->name('store.user');
 Route::get('user/edit/{id}',[App\Http\Controllers\UserController::class,'userEdit'])->name('user.edit');

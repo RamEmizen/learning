@@ -11,16 +11,29 @@ use Illuminate\Support\Arr;
 
 class UserController extends Controller
 {
-   public function userList()
+   public function userList(Request $request)
    {
+    
     if(Auth::user()->roles[0]->id == '1'){
         // $userData = User::orderBy('id','asc')->get();
-        $userData= User::doesntHave('roles')->get();
+        $date ="";
+        $name="";
+        $userData= User::doesntHave('roles');
+        if(!empty($request->date)){
+            $date = date('Y-m-d',strtotime($request->date));
+            $userData= $userData->whereDate('created_at',$date);
+        } 
+        if(!empty($request->first_name)){
+            $name = $request->first_name;
+            $userData= $userData->where('first_name',$name)->orWhere('last_name',$name);
+        }
+
+        $userData = $userData->orderBY('id','desc')->get();
+
     }else{
-        $userData = User::where('created_by_id',Auth::user()->id)->orderBy('id','asc')->get();
-       
+        $userData = User::where('created_by_id',Auth::user()->id)->orderBy('id','desc')->get();
     }
-     return view('users.list',compact('userData'));
+     return view('users.list',compact('userData','date','name'));
    }
 
     public function addUser(){
