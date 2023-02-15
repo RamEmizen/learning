@@ -37,7 +37,7 @@ class UserController extends Controller
         $user = User::create($input);
         // $success['token'] = $user->createToken('MyLaravelApp')->accessToken;
         // $success['first_name'] = $user->first_name;
-        return response()->json(['status' =>200, 'message' => 'Login successfully']);
+        return response()->json(['status' =>200, 'message' => 'Register successfully']);
       }catch (\Exception $e) {
         return response()->json(['status'=>500,'response' => 'error','message' => 'Something went wrong'], 500);
     }
@@ -88,6 +88,7 @@ class UserController extends Controller
         ]);
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
+            // return response()->json(['status' => 409, 'response' => 'Error', 'message' => implode(",", $validator->messages()->all()), 'data' => $request->all()], 409);
         }
         
         if($request->hasFile('image'))
@@ -104,9 +105,10 @@ class UserController extends Controller
         $user->address = $request['address'];
         $user->email = $request['email'];        
         $user->save();
-        return response()->json(['success' => 'profile sucessfully updat']);
+        // return response()->json(['success' => 'Profile sucessfully updat']);
+        return response()->json(['status' => 200, 'response' => 'Success', 'message' => 'Profile sucessfully updat'], 200);
       }catch (\Exception $e) {
-        return  response()->json(['error', 'something wrong']);
+        return response()->json(['status' => 500, 'response' => 'error', 'message' => 'Something went wrong'], 500);
       }
   }
 
@@ -140,7 +142,7 @@ class UserController extends Controller
         return response(["status" => 200, 'otp'=> $mobile_details, "message" => "OTP sent successfully"]);
         }
         else{
-            return response(["status" => 401, 'message' => 'Invalid']);
+            return response(["status" => 409, 'message' => 'Invalid']);
         }
       }catch (\Exception $e) {
         return  response()->json(['error', 'something wrong']);
@@ -200,7 +202,7 @@ class UserController extends Controller
         return json_encode(['status' => 500, 'message' => 'Email is not valid!']);
     }
  }
-  
+  //agora
     public function generate_token(Request $request){
       try {
            $validator = Validator::make($request->all(), [
