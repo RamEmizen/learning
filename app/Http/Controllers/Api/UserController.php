@@ -37,7 +37,7 @@ class UserController extends Controller
         $user = User::create($input);
         // $success['token'] = $user->createToken('MyLaravelApp')->accessToken;
         // $success['first_name'] = $user->first_name;
-        return response()->json(['status' =>200, 'message' => 'Register successfully']);
+        return response()->json(['status' => 200, 'response' => 'Success', 'message' => 'Register successfully'], 200);
       }catch (\Exception $e) {
         return response()->json(['status'=>500,'response' => 'error','message' => 'Something went wrong'], 500);
     }
@@ -50,7 +50,8 @@ class UserController extends Controller
           $user = Auth::user(); 
           $success['token'] =  $user->createToken('MyLaravelApp')-> accessToken;
           // $success['userId'] = $user->id;
-          return response()->json(['status' =>200, 'message' => 'Login successfully',  'success' => $success]); 
+          return response()->json(['status' => 200, 'response' => 'Success', 'message' => 'Register successfully','success' => $success], 200);
+
       }else{
         return response()->json(['status'=>401,'response' => 'error','message' => 'email not exits'], 401); 
       }
@@ -63,10 +64,10 @@ class UserController extends Controller
           $success['token'] =  $user->createToken('MyLaravelApp')-> accessToken;
           return response()->json(['status'=>200,'response' => 'success','message' => 'Login successfully','data' => $success], 200); 
         }else{
-          return response()->json(['status'=>401,'response' => 'error','message' => 'Password not metch'], 401);   
+          return response()->json(['status'=>409,'response' => 'error','message' => 'Password not metch'], 409);   
         }
       }else{
-        return response()->json(['status'=>401,'response' => 'error','message' => 'Phone number not exits'], 401); 
+        return response()->json(['status'=>409,'response' => 'error','message' => 'Phone number not exits'], 409); 
       }      
   }
      }catch (\Exception $e) {
@@ -121,9 +122,10 @@ class UserController extends Controller
         {
          $user['image'] = 'img/'. @$user["image"];
         }
-       return response()->json(['success' => $user]);
+       return response()->json(['status' => 200, 'response' => 'Success', 'message' => 'Profile details get successfully','success' => $user], 200);
+
       }catch (\Exception $e) {
-       return  response()->json(['error', 'something wrong']);
+        return response()->json(['status' => 500, 'response' => 'error', 'message' => 'Something went wrong'], 500);
       }
    }
 
@@ -139,13 +141,13 @@ class UserController extends Controller
             'body' => 'Your OTP is : '. $otp
         ];
       // dd( $mobile_details);
-        return response(["status" => 200, 'otp'=> $mobile_details, "message" => "OTP sent successfully"]);
+        return response(["status" => 200, 'response' => 'Success', 'otp'=> $mobile_details, "message" => "OTP sent successfully"],200);
         }
         else{
-            return response(["status" => 409, 'message' => 'Invalid']);
+            return response(["status" => 409, 'response' => 'error', 'message' => 'Invalid'],409);
         }
       }catch (\Exception $e) {
-        return  response()->json(['error', 'something wrong']);
+        return  response()->json(['status'=>'500', 'response'=> 'error','message'=>'something wrong'],500);
       }
     }
 
@@ -160,7 +162,7 @@ class UserController extends Controller
             return response(["status" => 200, "message" => "Success", 'user' => auth()->user(), 'access_token' => $accessToken]);
         }
         else{
-            return response(["status" => 401, 'message' => 'Invalid']);
+            return response(["status" => 409, 'response'=>'error','message' => 'Invalid'],409);
         }
       }catch (\Exception $e) {
         return  response()->json(['error', 'something wrong']);
@@ -199,7 +201,7 @@ class UserController extends Controller
             return response()->json($obj);
         }
     } catch (\Exception $ex) {
-        return json_encode(['status' => 500, 'message' => 'Email is not valid!']);
+        return json_encode(['status' => 500, 'response'=>'error', 'message' => 'Email is not valid!'],500);
     }
  }
   //agora
