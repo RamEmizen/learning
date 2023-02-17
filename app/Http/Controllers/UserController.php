@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Country;
+use App\Models\State;
+use App\Models\City;
 use Spatie\Permission\Models\Role;
 use DB;
 use Hash,Auth;
@@ -37,7 +40,10 @@ class UserController extends Controller
    }
 
     public function addUser(){
-     return view('users.add');  
+        $countries = Country::all();
+        $state = State::all();
+        $city = City::all();
+     return view('users.add',compact(['countries','state','city']));  
     }
     public function storeUser(Request $request){
         try{

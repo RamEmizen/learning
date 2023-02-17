@@ -1,4 +1,3 @@
-
 {{-- <script data-cfasync="false" src="..\..\..\cdn-cgi\scripts\5c5dd728\cloudflare-static\email-decode.min.js"></script> --}}
 <script type="text/javascript" src="\admin\js\jquery\js\jquery.min.js"></script>
 <script type="text/javascript" src="\admin\js\jquery-ui\js\jquery-ui.min.js"></script>
