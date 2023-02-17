@@ -50,7 +50,7 @@ class UserController extends Controller
           $user = Auth::user(); 
           $success['token'] =  $user->createToken('MyLaravelApp')-> accessToken;
           // $success['userId'] = $user->id;
-          return response()->json(['status' => 200, 'response' => 'Success', 'message' => 'Register successfully','success' => $success], 200);
+          return response()->json(['status' => 200, 'response' => 'Success', 'message' => 'login successfully','success' => $success], 200);
 
       }else{
         return response()->json(['status'=>401,'response' => 'error','message' => 'email not exits'], 401); 

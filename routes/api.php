@@ -46,5 +46,6 @@ Route::get('stripe-errors', [StripePaymentController::class, 'stripeErrors'])->n
 Route::post('game',[GameController::class,'game']);
 Route::post('add-game',[GameController::class,'gameLobby']);
 Route::get('get-game-details',[GameController::class,'getGameDetails']);
+Route::post('challenge',[GameController::class,'challenge']);
 });
 

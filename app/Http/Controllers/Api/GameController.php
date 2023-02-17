@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Games;
 use App\Models\GameLobby;
+use App\Models\Challenge;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
@@ -113,12 +114,37 @@ class GameController extends Controller
        }
 
      } catch (\Exception $e) {
-        dd($e);
         return response()->json(['status' => 500, 'response' => 'error', 'message' => 'Something went wrong'], 500);
+     }
     }
 
-
-
-
+   public function challenge(Request $request){
+     try{ 
+            $data = $request->all();
+            $userId = Auth::user()->id;
+            $validator = Validator::make($request->all(), [
+                'game_id' => 'required',
+                'pool_price'=> 'required',
+                'participants' => 'required',
+                'game_name' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['status' => 409, 'response' => 'Error', 'message' => implode(",", $validator->messages()->all()), 'data' => $data], 409);
+        }  
+            $winner = $data['participants']*$data['pool_price'];
+            $challange  = [
+                'game_id' => $data['game_id'],
+                'pool_price'=> $data['pool_price'],
+                'participants' => $data['participants'],
+                'winning_price' => $winner,
+                'game_name' => $data['game_name'],
+                'user_id' => $userId,
+            ];
+            $challengeData = challenge::create( $challange);
+            return response()->json(['status'=>200,'response'=>'sucess','message'=>'challenge add sucessfully'],200);
+     }catch(Exception $e){
+      return response()->json(['status'=>500, 'response'=>'error','message'=>'somthing went wrong'],500);
+     }
     }
+
 }
