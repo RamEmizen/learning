@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\StripePaymentController;
+use App\Http\Controllers\Api\GameController;
 
 
 
@@ -41,5 +42,9 @@ Route::post('stripes', [StripePaymentController::class, 'stripes']);
 Route::get('stripe-successs', [StripePaymentController::class, 'stripeSuccesss'])->name('stripes.success');
 Route::get('stripe-errors', [StripePaymentController::class, 'stripeErrors'])->name('stripes.error');
 
+//Game
+Route::post('game',[GameController::class,'game']);
+Route::post('add-game',[GameController::class,'gameLobby']);
+Route::get('get-game-details',[GameController::class,'getGameDetails']);
 });
 

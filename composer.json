@@ -12,6 +12,7 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3.1|^7.0.1",
+        "jaynilsavani/laravel-country-state-city": "1.0.0",
         "laravel/framework": "^8.0",
         "laravel/passport": "^10.4",
         "laravel/tinker": "^2.5",
