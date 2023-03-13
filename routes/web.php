@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\QrCodeController;
+use App\Http\Controllers\ItemController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -55,6 +56,17 @@ Route::get('user/edit/{id}',[App\Http\Controllers\UserController::class,'userEdi
 Route::post('user/update' ,[App\Http\Controllers\UserController::class,'userUpdate'])->name('user.update');
 Route::post('user/delete' ,[App\Http\Controllers\UserController::class,'userDelete'])->name('user.delete');
 Route::get('user/show/{id}',[App\Http\Controllers\UserController::class,'userShow'])->name('user.show');
+
+Route::get('/user/pdf', [App\Http\Controllers\UserController::class, 'createPDF'])->name('user.pdf');
+
+Route::get('date/filter', [App\Http\Controllers\UserController::class, 'dateFilter'])->name('date.filter');
+
+
+Route::get('pdfview',array('as'=>'pdfview','uses'=>'UserController@pdfview'));
+
+
+
+
 
 //roll for user
 Route::resource('roles', RoleController::class);

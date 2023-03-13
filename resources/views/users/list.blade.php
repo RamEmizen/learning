@@ -16,12 +16,20 @@
     <!--date picker -->
     <form action="{{route('user.list')}}" enctype="multipart/form-data" method="post">
      @csrf
-    <p>Date: <input type="text" name="date" id="datepicker" value="{{$date}}"readonly></p>
+    {{-- <p>Date: <input type="text" name="date" id="datepicker" value="{{$date}}"readonly></p> --}}
 
-    <p>Filter: <input type="text" name="first_name"  value="{{$name}}"></p>
+    {{-- <p>Filter: <input type="text" name="first_name"  value="{{$name}}"></p> --}}
     <button id='Submit' type="submit" class="btn btn-primary">Submit</button>
    </form>
 
+   <form action="{{route('date.filter')}}" method="GET">
+    <div class="input-group mb-3">
+        <input type="date" class="form-control" name="start_date">
+        <input type="date" class="form-control" name="end_date">
+        <button class="btn btn-primary" type="submit">GET</button>
+        <a href="{{route('user.list')}}" class="btn btn-primary" >Reset</a>
+    </div>
+</form>
     <!-- /.content-header -->
     <section class="content">
         <div class="row">
@@ -32,6 +40,13 @@
                         <a href="{{ route('add.user') }}" class="card-title">+ Add user</a>
                     @endif
                 </div>
+
+
+                <h2 class="text-center mb-3">Laravel HTML to PDF Example</h2>
+                <div class="d-flex justify-content-end mb-4">
+                    <a class="btn btn-primary" href="{{route('user.list',['download'=>'pdf'])}}">Download PDF</a></a>
+                </div> 
+
                 <div class="card-body">
                     <table id="category_tbl" class="table table-bordered table-striped">
                         <thead>
@@ -135,4 +150,50 @@
                 });
         }
     </script>
+
+{{-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script> --}}
+<script type="text/javascript">
+    function DownloadFile(fileName) {
+        //Set the File URL.
+        var url = "Files/" + fileName;
+
+        $.ajax({
+            url: "{{route('user.list')}}",
+            cache: false,
+            xhr: function () {
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 2) {
+                        if (xhr.status == 200) {
+                            xhr.responseType = "blob";
+                        } else {
+                            xhr.responseType = "text";
+                        }
+                    }
+                };
+                return xhr;
+            },
+            success: function (data) {
+                //Convert the Byte Data to BLOB object.
+                var blob = new Blob([data], { type: "application/octetstream" });
+             
+                //Check the Browser type and download the File.
+                var isIE = false || !!document.documentMode;
+                if (isIE) {
+                    window.navigator.msSaveBlob(blob, fileName);
+                } else {
+                    var url = window.URL || window.webkitURL;
+                    link = url.createObjectURL(blob);
+                    var a = $("<a />");
+                    a.attr("download", fileName);
+                    a.attr("href", link);
+                    $("body").append(a);
+                    a[0].click();
+                    $("body").remove(a);
+                }
+            }
+        });
+    };
+</script>
+
 @endsection

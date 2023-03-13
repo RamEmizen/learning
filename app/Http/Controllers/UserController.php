@@ -9,14 +9,16 @@ use App\Models\State;
 use App\Models\City;
 use Spatie\Permission\Models\Role;
 use DB;
+use PDF;
 use Hash,Auth;
+use Carbon\Carbon;
 use Illuminate\Support\Arr;
 
 class UserController extends Controller
 {
    public function userList(Request $request)
    {
-    
+  
     if(Auth::user()->roles[0]->id == '1'){
         // $userData = User::orderBy('id','asc')->get();
         $date ="";
@@ -36,6 +38,15 @@ class UserController extends Controller
     }else{
         $userData = User::where('created_by_id',Auth::user()->id)->orderBy('id','desc')->get();
     }
+//this is for pdf
+    if($request->has('download'))
+    {
+        $pdf = PDF::loadView('pdfview',compact('userData'))->setOptions(['defaultFont' => 'sans-serif']);
+       return $pdf->download('pdf_file.pdf');
+       
+    }
+    //
+
      return view('users.list',compact('userData','date','name'));
    }
 
@@ -238,7 +249,6 @@ class UserController extends Controller
         $user = User::find($id);
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
-    
         return view('users.edit',compact('user','roles','userRole'));
     }
     
@@ -287,5 +297,30 @@ class UserController extends Controller
         return redirect()->route('users.index')
                         ->with('success','User deleted successfully');
     }
-}
+  //this is for pdf
+      public function pdfview(Request $request)
+      {
+          $items = DB::table("users")->get();
+          view()->share('items',$items);
+          if($request->has('download')){
+              $pdf = PDF::loadView('pdfview');
+              return $pdf->download('pdfview.pdf');
+          }
+          return view('pdfview');
+      }
 
+ //this is for filter
+     public function dateFilter(Request $request)
+       {
+            if (request()->start_date || request()->end_date) {
+                $start_date = Carbon::parse(request()->start_date)->toDateTimeString();
+                $end_date = Carbon::parse(request()->end_date)->toDateTimeString();
+                $userData = User::whereBetween('created_at',[$start_date,$end_date])->get();
+                
+            } else {
+                $userData = User::latest()->get();
+            }
+            return view('users.list', compact('userData'));
+      }
+
+ }
