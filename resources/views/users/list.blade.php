@@ -42,7 +42,6 @@
                 </div>
 
 
-                <h2 class="text-center mb-3">Laravel HTML to PDF Example</h2>
                 <div class="d-flex justify-content-end mb-4">
                     <a class="btn btn-primary" href="{{route('user.list',['download'=>'pdf'])}}">Download PDF</a></a>
                 </div> 
@@ -58,8 +57,8 @@
                                 <th scope="col">Mobile</th>
                                 <th scope="col">Image</th>
                                 <th scope='col'>Time</th>
+                                <th scope='col'>Status</th>
                                 <th scope="col">Action</th>
-
                             </tr>
                         </thead>
                         <tbody>
@@ -84,6 +83,20 @@
                                         @endif
                                     </td>
                                      <td>{{($pages->created_at->format('Y.m.d'))}}</td>
+
+
+                                     <td>
+                                        @if($pages->status == 1)
+                                        <a onclick=""  href="javascript:void(0);" class="actions status_update" data-status="0" id="{{ $pages->id }}"> 
+                                            <span class="badge badge-success">Active</span>
+                                        </a> 
+                                        @else 
+                                        <a  onclick="" href="javascript:void(0);" class="actions status_update" data-status="1" id="{{ $pages->id }}">
+                                            <span class="badge badge-danger">Deactive</span>
+                                        </a> 
+                                        @endif 
+                                    </td>
+
                                     <td class="action">
                                         <a href="{{ route('user.edit', $pages->id) }}"><i class="fa fa-edit"></i></a>
                                          <a href="{{route('user.show', $pages->id)}}"><i class="fa fa-eye"></i></a>
@@ -152,48 +165,35 @@
     </script>
 
 {{-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script> --}}
-<script type="text/javascript">
-    function DownloadFile(fileName) {
-        //Set the File URL.
-        var url = "Files/" + fileName;
 
-        $.ajax({
-            url: "{{route('user.list')}}",
-            cache: false,
-            xhr: function () {
-                var xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState == 2) {
-                        if (xhr.status == 200) {
-                            xhr.responseType = "blob";
-                        } else {
-                            xhr.responseType = "text";
-                        }
-                    }
-                };
-                return xhr;
-            },
-            success: function (data) {
-                //Convert the Byte Data to BLOB object.
-                var blob = new Blob([data], { type: "application/octetstream" });
-             
-                //Check the Browser type and download the File.
-                var isIE = false || !!document.documentMode;
-                if (isIE) {
-                    window.navigator.msSaveBlob(blob, fileName);
-                } else {
-                    var url = window.URL || window.webkitURL;
-                    link = url.createObjectURL(blob);
-                    var a = $("<a />");
-                    a.attr("download", fileName);
-                    a.attr("href", link);
-                    $("body").append(a);
-                    a[0].click();
-                    $("body").remove(a);
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+$(document).on("click", ".status_update", function () {
+      var status = $(this).attr("data-status");
+      var id = $(this).attr("id");
+      var this_id = $(this);
+      $.ajax({
+          url: '{{ route("users.status") }}',
+          type: "POST",
+          data: {_token: '{{ csrf_token() }}', status: status, id: id},
+          dataType: "json",
+          success: function (response) {
+            if(response.status == "200") {
+                if(status == 1){
+                  $(this_id).attr("data-status",'0');
+                  $(this_id).html('<span class="badge badge-success">Active</span>');
+                }else{
+                  $(this_id).attr("data-status",'1');
+                  $(this_id).html('<span class="badge badge-danger">Deactive</span>');
                 }
+                swal.fire("Done!", response.message, "success");
+            }else{
+              swal.fire("Error deleting!", "Please try again", "error");
             }
-        });
-    };
-</script>
+          },
+      });
+    });
+    </script>
 
 @endsection

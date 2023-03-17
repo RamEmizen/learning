@@ -323,4 +323,22 @@ class UserController extends Controller
             return view('users.list', compact('userData'));
       }
 
+      public function statusUpdate(Request $request)
+      {
+          $data = $request->all();
+          try {
+              $userData = User::where('id', $request->id)->first();
+              if (!empty($userData)) {
+                  $userData->status = $data['status'];
+                  $userData->save();
+                  return json_encode(['status' => 200, 'message' => "user status updated successfully"]);
+              } else {
+                  return json_encode(['status' => 500, 'message' => "Something problem in internal system!"]);
+              }
+          } catch (\Exception $e) {
+              return json_encode(['status' => 500, 'message' => "Something problem in internal system!"]);
+          }
+      }
+  
+
  }

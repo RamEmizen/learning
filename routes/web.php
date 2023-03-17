@@ -58,7 +58,7 @@ Route::post('user/delete' ,[App\Http\Controllers\UserController::class,'userDele
 Route::get('user/show/{id}',[App\Http\Controllers\UserController::class,'userShow'])->name('user.show');
 
 Route::get('/user/pdf', [App\Http\Controllers\UserController::class, 'createPDF'])->name('user.pdf');
-
+Route::post('users/status', [App\Http\Controllers\UserController::class, 'statusUpdate'])->name('users.status');
 Route::get('date/filter', [App\Http\Controllers\UserController::class, 'dateFilter'])->name('date.filter');
 
 
