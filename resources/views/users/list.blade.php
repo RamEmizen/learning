@@ -16,9 +16,9 @@
     <!--date picker -->
     <form action="{{route('user.list')}}" enctype="multipart/form-data" method="post">
      @csrf
-    {{-- <p>Date: <input type="text" name="date" id="datepicker" value="{{$date}}"readonly></p> --}}
+    <p>Date: <input type="text" name="date" id="datepicker" value="{{$date}}"readonly></p>
 
-    {{-- <p>Filter: <input type="text" name="first_name"  value="{{$name}}"></p> --}}
+    <p>Filter: <input type="text" name="first_name"  value="{{$name}}"></p>
     <button id='Submit' type="submit" class="btn btn-primary">Submit</button>
    </form>
 
@@ -164,7 +164,7 @@
         }
     </script>
 
-{{-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script> --}}
+
 
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -189,7 +189,7 @@ $(document).on("click", ".status_update", function () {
                 }
                 swal.fire("Done!", response.message, "success");
             }else{
-              swal.fire("Error deleting!", "Please try again", "error");
+              swal.fire("Error status!", "Please try again", "error");
             }
           },
       });

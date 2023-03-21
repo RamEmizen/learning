@@ -175,6 +175,16 @@
                                     </a>
                                 </li>
                             </ul>
+
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li class="">
+                                    <a href="{{ route('send') }}">
+                                        <span class="pcoded-micon"><i class="feather icon-list"></i></span>
+                                        <span class="pcoded-mtext">Notifications</span>
+                                    </a>
+                                </li>
+                            </ul>
+
                         </div>
                 </div>
             </div>

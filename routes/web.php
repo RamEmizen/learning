@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\sendNotificationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -65,9 +66,9 @@ Route::get('date/filter', [App\Http\Controllers\UserController::class, 'dateFilt
 Route::get('pdfview',array('as'=>'pdfview','uses'=>'UserController@pdfview'));
 
 
-
-
-
+//notification
+// Route::get('send', 'HomeController@sendNotification');
+Route::get('send', [App\Http\Controllers\sendNotificationController::class, 'sendNotification'])->name('send');
 //roll for user
 Route::resource('roles', RoleController::class);
 Route::resource('users', UserController::class);
