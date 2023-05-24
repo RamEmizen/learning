@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Notification;
+use App\Helpers\Helper;
 use App\Notifications\MyFirstNotification;
   
 class sendNotificationController extends Controller
@@ -29,24 +30,22 @@ class sendNotificationController extends Controller
         return view('home');
     }
   
-    public function sendNotification()
+    public function saveToken(Request $request)
     {
-        $users = User::first();
-        // dd( $users);
-        // $users = User::where('status', '1')->first();
- 
-        $details = [
-            'greeting' => 'Hi Artisan',
-            'body' => 'This is my first notification from ItSolutionStuff.com',
-            'thanks' => 'Thank you for using ItSolutionStuff.com tuto!',
-            'actionText' => 'View My Site',
-            'actionURL' => url('/'),
-            'id' => 1
+        auth()->user()->update(['device_token'=>$request->token]);
+        return response()->json(['token saved successfully.']);
+    }
+
+    public function sendNotification(Request $request)
+    {
+        $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->toArray();
+       
+        $notiData = [
+            "device_token" => $firebaseToken,
+                "title" => $request->title,
+                "body" => $request->body,  
         ];
-        $users->notify(new MyFirstNotification($details));
-    //    $data =  Notification::send($users, new MyFirstNotification($details));
-    //    dd($data);
-   
+         Helper::getNotificaton($notiData);
     }
   
 }

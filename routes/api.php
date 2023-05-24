@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\StripePaymentController;
 use App\Http\Controllers\Api\GameController;
+use App\Http\Controllers\Api\NotificationController;
 
 
 
@@ -47,5 +48,10 @@ Route::post('game',[GameController::class,'game']);
 Route::post('add-game',[GameController::class,'gameLobby']);
 Route::get('get-game-details',[GameController::class,'getGameDetails']);
 Route::post('challenge',[GameController::class,'challenge']);
+
+//notificaion api
+// Route::post('/save-token', [NotificationController::class, 'saveToken'])->name('save-token');
+// Route::post('/send-notification', [NotificationController::class, 'sendNotification'])->name('send.notification');
+
 });
 

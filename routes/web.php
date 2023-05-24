@@ -50,6 +50,8 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
 Route::group(['middleware'=>'auth:web'], function() {
 Route::get('dashboard', [AuthController::class, 'dashboard'])->name('dashboard'); 
 Route::get('/qrcode', [QrCodeController::class, 'index'])->name('qrcode');
+
+
 Route::any('user/list', [App\Http\Controllers\UserController::class, 'userList'])->name('user.list');
 Route::get('user/add',[App\Http\Controllers\UserController::class,'addUser'])->name('add.user');
 Route::post('user/store',[App\Http\Controllers\UserController::class,'storeUser'])->name('store.user');
@@ -68,9 +70,14 @@ Route::get('pdfview',array('as'=>'pdfview','uses'=>'UserController@pdfview'));
 
 //notification
 // Route::get('send', 'HomeController@sendNotification');
-Route::get('send', [App\Http\Controllers\sendNotificationController::class, 'sendNotification'])->name('send');
+// Route::get('send', [App\Http\Controllers\sendNotificationController::class, 'sendNotification'])->name('send');
 //roll for user
 Route::resource('roles', RoleController::class);
 Route::resource('users', UserController::class);
+
+
+Route::get('/send', [App\Http\Controllers\sendNotificationController::class, 'index'])->name('send');
+Route::post('/save-token', [App\Http\Controllers\sendNotificationController::class, 'saveToken'])->name('save-token');
+Route::post('/send-notification', [App\Http\Controllers\sendNotificationController::class, 'sendNotification'])->name('send.notification');
     
 });
